@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1060845984972",
+    "project_id": "hapl-9be1d",
+    "storage_bucket": "hapl-9be1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060845984972:android:cd87aab7ad73ec59227669",
+        "android_client_info": {
+          "package_name": "com.hapl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJvIk_wbbfZiR1Ik8WP-m0Z-88Hz7AQBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
