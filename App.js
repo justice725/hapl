@@ -1,9 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {NavigationContainer} from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from "./src/components/LoginScreen";
+import Home from "./src/components/Home";
+import {AuthContext, AuthProvider} from "./src/context/AuthContext";
+
+const Stack = createStackNavigator();
+
+
+
+
+
+
+
+
+const HomeStack = () => ( // 로그인 이후 페이지 분할
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Details" component={DetailsScreen} />
+  </Stack.Navigator>
+);
+
+
+const AppNavigator = () => { // 로그인 상태 페이지 분할
+  const { isLoggedIn } = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator>
+      {isLoggedIn ? (
+        <Stack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }} />
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      )}
+    </Stack.Navigator>
+  );
+};
+
+
+
 
 const App = () => {
-  const [email, setEmail] = useState('');
+  // 로그인 페이지에 추가
+  /*const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
@@ -29,10 +69,27 @@ const App = () => {
       .then(() => {
         console.log('User signed out!');
       });
-  };
+  };*/
+
+
 
   return (
-    <View>
+    <>
+      <AuthProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthProvider>
+
+    </>
+  );
+};
+
+export default App;
+
+
+/*
+<View>
       {user ? (
         <View>
           <Text>Welcome, {user.email}</Text>
@@ -54,8 +111,4 @@ const App = () => {
           <Button title="Login" onPress={handleLogin} />
         </View>
       )}
-    </View>
-  );
-};
-
-export default App;
+    </View>*/
