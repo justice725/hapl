@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Alert} from "react-native";
 import {View, Text, TextInput, Button, StyleSheet, Image} from 'react-native';
-import {signIn} from "../lib/auth";
-import {AuthContext} from "../context/AuthContext";
+import {signIn} from "../../lib/auth";
+import {AuthContext} from "../../context/AuthContext";
 import auth from "@react-native-firebase/auth";
 
 const LoginScreen = ({navigation}) => {
@@ -30,7 +30,7 @@ const LoginScreen = ({navigation}) => {
 
 
 
-    const handleLogin = () => {
+    const LoginHandler = () => {
         if (!email) {
             Alert.alert("로그인에 실패했어요!", "이메일을 입력해주세요.");
             return;
@@ -49,7 +49,7 @@ const LoginScreen = ({navigation}) => {
             .then(() => {
                 console.log('User signed in!');
                 loginContext();
-                navigation.replace('Main');
+                navigation.replace('HomeStack');
             })
             .catch(e => {
                 console.error(e);
@@ -65,7 +65,7 @@ const LoginScreen = ({navigation}) => {
 
                 <View className="flex flex-row items-center justify-center gap-[6px]">
                     <Image
-                        source={require('@assets/inner_logo.png')} // react-native 에서는 svg 파일을 지원하지 않음. svg 파일을 사용하려면 컴포넌트화 해야 함.
+                        source={require('@assets/inner_logo.png')}
                     />
                     <View className="h-full ">
                         <Text className="text-[24px] font-semibold color-[#232433] leading-none">하-플</Text>
@@ -79,25 +79,28 @@ const LoginScreen = ({navigation}) => {
                 </View>
 
                 <View>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={setEmail}
+                        className="font-sans"
+                    />
+                    <TextInput
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                        className="font-sans"
+                    />
+                    <Button title="Login" onPress={LoginHandler}/>
                 </View>
 
-                <View>
+                <View className="flex flex-row gap-[14px] items-center justify-center">
+                    <Text>아직 회원이 아니세요?</Text>
+                    <Text onPress={()=>navigation.navigate('SignUp')}>회원가입하기</Text>
                 </View>
 
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    className="font-sans"
-                />
-                <TextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                    className="font-sans"
-                />
-                <Button title="Login" onPress={handleLogin}/>
+
             </View>
         </View>
     );
