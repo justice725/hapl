@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Home = () => {
+const HomeScreen = () => {
 return(
-<View>
+<View className="font-sans">
     <Text>home</Text>
 </View>
 )
 
 }
 
-export default Home;
+export default HomeScreen;

@@ -4,8 +4,9 @@ import auth from '@react-native-firebase/auth';
 import {NavigationContainer} from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from "./src/components/LoginScreen";
-import Home from "./src/components/Home";
+import HomeScreen from "./src/components/HomeScreen";
 import {AuthContext, AuthProvider} from "./src/context/AuthContext";
+import { TailwindProvider } from 'nativewind';
 
 const Stack = createStackNavigator();
 
@@ -28,13 +29,16 @@ const AppNavigator = () => { // 로그인 상태 페이지 분할
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
+
     <Stack.Navigator>
+
       {isLoggedIn ? (
         <Stack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }} />
       ) : (
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       )}
     </Stack.Navigator>
+
   );
 };
 
@@ -75,9 +79,12 @@ const App = () => {
 
   return (
     <>
+
       <AuthProvider>
       <NavigationContainer>
+
         <AppNavigator />
+
       </NavigationContainer>
     </AuthProvider>
 

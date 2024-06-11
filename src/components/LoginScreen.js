@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Alert} from "react-native";
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Image} from 'react-native';
 import {signIn} from "../lib/auth";
 import {AuthContext} from "../context/AuthContext";
 import auth from "@react-native-firebase/auth";
@@ -32,15 +32,15 @@ const LoginScreen = ({navigation}) => {
 
     const handleLogin = () => {
         if (!email) {
-            Alert.alert("입력 오류", "이메일을 입력해주세요.");
+            Alert.alert("로그인에 실패했어요!", "이메일을 입력해주세요.");
             return;
         }
         if (!validateEmail(email)) {
-            Alert.alert("입력 오류", "올바른 이메일 형식을 입력해주세요.");
+            Alert.alert("로그인에 실패했어요!", "올바른 이메일 형식을 입력해주세요.");
             return;
         }
         if (!password) {
-            Alert.alert("입력 오류", "비밀번호를 입력해주세요.");
+            Alert.alert("로그인에 실패했어요!", "비밀번호를 입력해주세요.");
             return;
         }
 
@@ -55,25 +55,50 @@ const LoginScreen = ({navigation}) => {
                 console.error(e);
                 const alertMessage = resultMessages[e.code] ?
                     resultMessages[e.code] : "알 수 없는 이유로 로그인에 실패하였습니다.";
-                Alert.alert("로그인 실패", alertMessage);
+                Alert.alert("로그인에 실패했어요!", alertMessage);
             });
     };
 
     return (
-        <View>
-            <Text>Login</Text>
-            <TextInput
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
-            <Button title="Login" onPress={handleLogin}/>
+        <View className="w-screen h-screen p-[50px] bg-white flex justify-center items-center font-sans">
+            <View className="w-full h-auto m-0 mx-auto">
+
+                <View className="flex flex-row items-center justify-center gap-[6px]">
+                    <Image
+                        source={require('@assets/inner_logo.png')} // react-native 에서는 svg 파일을 지원하지 않음. svg 파일을 사용하려면 컴포넌트화 해야 함.
+                    />
+                    <View className="h-full ">
+                        <Text className="text-[24px] font-semibold color-[#232433] leading-none">하-플</Text>
+                        <Text className="text-[14px] color-[#51525C] font-medium leading-none">우리들의 <Text className="color-[#FF0606] leading-none">핫 플</Text>레이스</Text>
+                    </View>
+                </View>
+
+                <View>
+                    <Text className="color-[#000000] font-bold text-[17px]">안녕하세요 : )</Text>
+                    <Text className="color-[#000000] font-bold text-[17px]">하플입니다.</Text>
+                </View>
+
+                <View>
+                </View>
+
+                <View>
+                </View>
+
+                <TextInput
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    className="font-sans"
+                />
+                <TextInput
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                    className="font-sans"
+                />
+                <Button title="Login" onPress={handleLogin}/>
+            </View>
         </View>
     );
 }
