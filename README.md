@@ -23,6 +23,7 @@
     모든 이미지 파일은 root/src/assets/img/~~ 폴더 내에 작성한다.
     초기 config 작성에 의해 아래의 사용법과 같이 경로 규칙을 지켜서 작성한다.
         
+(3) 버튼의 스타일링을 위해 <Button/> 컴포넌트가 아닌 <TouchableOpacity/> 컴포넌트를 사용한다.
 ```
 ```html
 <Image
